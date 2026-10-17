@@ -1,0 +1,57 @@
+/* ---------- Centro de entrenamiento ---------- */
+.co-input { display: grid; gap: 8px; margin-block: 18px 14px; }
+.co-input-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.co-scramble { flex: 1 1 320px; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font: 600 15px var(--f-mono); word-spacing: 3px; }
+.co-scramble:focus { outline: 0; border-color: var(--accent); }
+.co-input-tools .btn { font-size: 13px; padding: 5px 11px; }
+.co-error { margin: 0; color: var(--holding); font-size: 13px; }
+.co-steps { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+.co-step { display: inline-flex; gap: 6px; align-items: baseline; border: 1px solid var(--line); background: var(--surface); border-radius: 99px; padding: 4px 12px; font-size: 13px; font-weight: 600; }
+.co-step small { font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
+button.co-step { cursor: pointer; }
+button.co-step:hover { border-color: var(--muted); }
+.co-step.done::before { content: "✓"; color: var(--st-known); }
+.co-step.now { border-color: var(--accent); color: var(--accent); }
+.co-step.ok { background: var(--st-known); border-color: var(--st-known); color: #fff; }
+.co-grid { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; align-items: start; }
+.co-cube { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; position: sticky; top: 16px; }
+.co-views { display: grid; gap: 4px; }
+.co-views figure { margin: 0; display: grid; justify-items: center; }
+.co-views img { width: 100%; max-width: 200px; height: auto; aspect-ratio: 1; }
+.co-views figcaption { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.co-panel { min-width: 0; }
+.co-title { font: 700 22px/1.2 var(--f-display); margin: 0 0 4px; }
+.co-explain { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }
+.co-options { display: grid; gap: 10px; }
+.co-opt { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; display: grid; grid-template-columns: 88px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.co-opt.best { border-color: var(--accent); }
+.co-opt img { width: 88px; height: 88px; }
+.co-opt-body { min-width: 0; display: grid; gap: 4px; }
+.co-opt-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.co-opt h4 { margin: 0; font: 700 16px var(--f-display); }
+.co-opt .muted { font: 500 13px var(--f-body); }
+.badge { background: var(--accent); color: var(--accent-fg); font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 99px; }
+.tag { font-size: 11px; color: var(--muted); border: 1px solid var(--line); padding: 0 6px; border-radius: 99px; }
+.co-meta { margin: 0; display: flex; gap: 4px 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+.co-meta b { color: var(--fg); font-weight: 600; }
+#co-more { margin-top: 10px; }
+.co-solution { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; margin-top: 18px; }
+.co-sol-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+.co-sol-tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.co-sol-tools .btn { font-size: 13px; padding: 5px 11px; text-decoration: none; color: var(--fg); }
+.co-sol-wrap { overflow-x: auto; }
+.co-sol { width: 100%; border-collapse: collapse; font-size: 14px; }
+.co-sol th, .co-sol td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.co-sol th { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.co-sol td.n { color: var(--muted); width: 2em; }
+.co-sol td.mono { font-family: var(--f-mono); }
+.co-sol .num { text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .co-grid { grid-template-columns: 1fr; }
+  .co-cube { position: static; }
+  .co-views { grid-template-columns: 1fr 1fr; }
+  .co-opt { grid-template-columns: 64px minmax(0, 1fr); }
+  .co-opt img { width: 64px; height: 64px; }
+  .co-opt .btn { grid-column: 1 / -1; justify-self: start; }
+}
+

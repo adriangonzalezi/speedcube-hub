@@ -1,0 +1,56 @@
+/* Progreso */
+.progress-row { display: flex; align-items: center; gap: 14px; margin-block: 18px 12px; flex-wrap: wrap; }
+.progress { flex: 1 1 240px; height: 8px; background: var(--surface-2); border-radius: 99px; overflow: hidden; display: flex; }
+.progress span { display: block; height: 100%; transition: width .3s; }
+.p-known { background: var(--st-known); }
+.p-learning { background: var(--st-learning); }
+.progress-text { margin: 0; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.progress-text b { color: var(--fg); }
+
+/* Toolbar */
+.toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.search { flex: 1 1 320px; display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0 10px; min-width: 0; }
+.search:focus-within { border-color: var(--accent); }
+.search span { color: var(--muted); font-size: 18px; }
+.search input { flex: 1; border: 0; outline: 0; background: transparent; padding: 9px 0; min-width: 0; }
+.seg { display: inline-flex; background: var(--surface-2); border-radius: 8px; padding: 3px; gap: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; padding: 5px 11px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--fg); box-shadow: var(--shadow); }
+select { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 13px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-block: 12px 18px; }
+.chip { border: 1px solid var(--line); background: var(--surface); padding: 4px 11px; border-radius: 99px; cursor: pointer; font-size: 13px; display: inline-flex; gap: 6px; align-items: center; }
+.chip small { color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip[aria-pressed="true"] small { color: inherit; opacity: .7; }
+
+/* Rejilla de casos */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: grid; grid-template-columns: 96px 1fr; gap: 6px 14px; position: relative; min-width: 0; }
+.card[data-status="known"] { border-color: color-mix(in srgb, var(--st-known) 45%, var(--line)); }
+.card[data-status="learning"] { border-color: color-mix(in srgb, var(--st-learning) 45%, var(--line)); }
+.card .img { width: 96px; height: 96px; display: grid; place-items: center; grid-row: span 2; }
+.card .img img { width: 96px; height: 96px; }
+.card .head { min-width: 0; }
+.card h3 { margin: 0; font: 700 17px/1.2 var(--f-display); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.card h3 .nick { font: 500 13px var(--f-body); color: var(--muted); }
+.meta { font-size: 12px; color: var(--muted); margin-top: 2px; display: flex; gap: 8px; flex-wrap: wrap; }
+.status-btn { margin-top: 8px; border: 1px solid var(--line); background: var(--surface); border-radius: 99px; padding: 2px 10px 2px 8px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.status-btn::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--st-new); }
+.status-btn[data-status="learning"]::before { background: var(--st-learning); }
+.status-btn[data-status="known"]::before { background: var(--st-known); }
+.algs { grid-column: 1 / -1; display: grid; gap: 6px; margin-top: 8px; min-width: 0; }
+.alg-row { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: start; padding: 7px 8px; border-radius: 7px; background: var(--surface-2); border: 1px solid transparent; cursor: pointer; text-align: left; width: 100%; }
+.alg-row:hover { border-color: var(--line); }
+.alg-row.mine { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 9%, var(--surface)); }
+.alg-label { display: block; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.alg-row.mine .alg-label { color: var(--accent); }
+.alg { font-family: var(--f-mono); font-size: 13.5px; line-height: 1.45; word-spacing: 2px; overflow-wrap: anywhere; margin: 0; }
+.alg-tools { display: flex; gap: 2px; }
+.tool { border: 0; background: transparent; cursor: pointer; padding: 2px 5px; border-radius: 5px; color: var(--muted); font-size: 13px; text-decoration: none; line-height: 1.4; }
+.tool:hover { background: var(--surface); color: var(--fg); }
+.custom { grid-column: 1 / -1; display: flex; gap: 6px; }
+.custom input { flex: 1; min-width: 0; border: 1px dashed var(--line); background: transparent; border-radius: 7px; padding: 6px 8px; font: 13px var(--f-mono); }
+.custom input:focus { border-style: solid; border-color: var(--accent); outline: 0; }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; }
+

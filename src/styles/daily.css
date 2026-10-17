@@ -1,0 +1,20 @@
+/* ---------- Reto diario ---------- */
+.dl-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.dl-head .co-explain { margin: 0; }
+.dl-streak { display: flex; align-items: baseline; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 14px; color: var(--muted); font-size: 13px; }
+.dl-fire { font: 700 30px var(--f-display); color: var(--st-learning); font-variant-numeric: tabular-nums; }
+.dl-main { margin-top: 14px; display: grid; gap: 12px; }
+.dl-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 16px; align-items: center; }
+.dl-action { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+.dl-time { font: 600 56px/1 var(--f-mono); margin: 4px 0 10px; font-variant-numeric: tabular-nums; }
+.dl-guided { font-size: 14px; }
+.dl-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+.dl-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 280px; }
+.dl-cal span, .dl-legend i { aspect-ratio: 1; border-radius: 4px; background: var(--surface-2); }
+.dl-cal .ok, .dl-legend .ok { background: var(--st-known); }
+.dl-cal .dnf, .dl-legend .dnf { background: var(--holding); }
+.dl-cal .today { outline: 2px solid var(--accent); outline-offset: 1px; }
+.dl-legend { font-size: 12px; display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+.dl-legend i { display: inline-block; width: 12px; height: 12px; margin-right: -6px; }
+.dl-hist { margin-top: 16px; }
+
