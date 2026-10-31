@@ -2,9 +2,9 @@
 // Tarjetas con repaso espaciado: ves un caso, piensas el algoritmo, lo destapas y te puntúas.
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ALGORITHMS, allCases, type CaseSet, type CaseWithSet } from '@/data/algorithms';
-import { CubeImage, ProgressBar, Segmented } from '@/components/ui';
+import { CaseDiagram } from '@/components/cube/CubeDiagram';
+import { ProgressBar, Segmented } from '@/components/ui';
 import { pick, randomAuf } from '@/lib/random';
-import { caseImageUrl } from '@/lib/visualcube';
 import { useToast } from '@/state/AppProviders';
 import { SRS_BOXES, useProgress, type TrainPool } from '@/state/progress';
 
@@ -69,7 +69,7 @@ export function Flashcards() {
 
       {current ? (
         <div className="train-card">
-          <div className="train-img"><CubeImage src={caseImageUrl(current, current.set, { auf, iso: current.set === 'pll', size: 300 })} alt="Caso a reconocer" size={260} lazy={false} /></div>
+          <div className="train-img"><CaseDiagram c={current} set={current.set} auf={auf} iso={current.set === 'pll'} size={260} /></div>
           <div className="train-body">
             <p className="train-q">¿Qué {current.set.toUpperCase()} es?</p>
             {revealed && (

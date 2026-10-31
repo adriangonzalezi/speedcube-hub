@@ -1,19 +1,19 @@
 // Figuras para el contenido de las lecciones.
 import type { ReactNode } from 'react';
 import { findCase, type CaseSet } from '@/data/algorithms';
-import { AlgLink, CubeImage } from '@/components/ui';
-import { caseImageUrl, puzzleImageUrl } from '@/lib/visualcube';
+import { CaseDiagram, MovesDiagram } from '@/components/cube/CubeDiagram';
+import { AlgLink } from '@/components/ui';
 
 export const Figs = ({ children }: { children: ReactNode }) => <div className="ls-figs">{children}</div>;
 
 /** Cubo resuelto tras unos movimientos (blanco arriba, verde delante) */
 export function MoveFigure({ alg, caption = alg }: { alg: string; caption?: string }) {
-  return <figure className="ls-move"><CubeImage src={puzzleImageUrl(3, alg, 110)} size={88} /><figcaption><code>{caption}</code></figcaption></figure>;
+  return <figure className="ls-move"><MovesDiagram alg={alg} size={88} /><figcaption><code>{caption}</code></figcaption></figure>;
 }
 
 export function CaseFigure({ set, num }: { set: CaseSet; num: number | string }) {
   const c = findCase(set, num)!;
-  return <figure className="ls-move"><CubeImage src={caseImageUrl(c, set, { size: 120 })} alt={c.id} size={88} /><figcaption>{c.id}{c.nick && <><br /><small>{c.nick}</small></>}</figcaption></figure>;
+  return <figure className="ls-move"><CaseDiagram c={c} set={set} size={88} /><figcaption>{c.id}{c.nick && <><br /><small>{c.nick}</small></>}</figcaption></figure>;
 }
 
 /** Algoritmo principal de un caso, con enlace a la animación */

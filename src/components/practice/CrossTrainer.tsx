@@ -1,10 +1,10 @@
 'use client';
 // Entrenador de cruz: planifica en 15 s de inspección y compara tu cruz con la óptima.
 import { useEffect, useRef, useState } from 'react';
-import { CubeImage, CubeNet } from '@/components/ui';
+import { StateDiagram } from '@/components/cube/CubeDiagram';
+import { CubeNet } from '@/components/ui';
 import { apply, crossOk, fromScramble, moveCount, solver, type SolveOption } from '@/lib/cube';
 import { randomMoveScramble } from '@/lib/cube/scramble';
-import { stateImageUrl } from '@/lib/visualcube';
 import { usePracticeStore } from './usePracticeStore';
 
 type Mine = { ok: boolean; moves?: number; error?: string } | null;
@@ -70,7 +70,7 @@ export function CrossTrainer() {
                 : <p className="cx-mine bad">Con esos movimientos no queda la cruz blanca hecha. Revisa la notación o el giro inicial.</p>)}
             {solutions && <>
               <h4 className="tm-ph-title">Cruces óptimas ({best} mov.)</h4>
-              {solutions.map(o => <div key={o.alg} className="cx-opt"><CubeImage src={stateImageUrl(o.after, false, 100)} size={72} /><p className="alg">{o.alg}</p></div>)}
+              {solutions.map(o => <div key={o.alg} className="cx-opt"><StateDiagram state={o.after} size={72} label="Cubo tras la cruz" /><p className="alg">{o.alg}</p></div>)}
             </>}
           </div>
           <p className="muted pm-foot">Cruces practicadas: {store.cross.n} · longitud óptima media: {avg} mov. · veces que igualaste la óptima: {store.cross.matched}</p>

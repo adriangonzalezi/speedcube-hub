@@ -57,3 +57,9 @@ kbd { font: 11px var(--f-mono); padding: 1px 5px; border: 1px solid var(--line);
 .btn kbd { background: transparent; color: inherit; border-color: currentColor; opacity: .7; }
 .link { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-decoration: underline; font-size: inherit; }
 
+
+/* Dibujos del cubo (SVG generados en la app) */
+.cube-svg { display: block; max-width: 100%; height: auto; flex: none; }
+.train-img .cube-svg { width: 100%; max-width: 260px; }
+.co-views .cube-svg { width: 100%; max-width: 200px; }
+.card .img .cube-svg { width: 96px; height: 96px; }

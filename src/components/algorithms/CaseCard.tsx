@@ -2,9 +2,9 @@
 // Ficha de un caso: imagen, estado, algoritmos (elegir el tuyo, copiar, animación) y algoritmo propio.
 import { useState } from 'react';
 import type { AlgCase, CaseSet } from '@/data/algorithms';
-import { CubeImage } from '@/components/ui';
+import { CaseDiagram } from '@/components/cube/CubeDiagram';
 import { moveCount } from '@/lib/cube/notation';
-import { animationUrl, caseImageUrl } from '@/lib/visualcube';
+import { animationUrl } from '@/lib/visualcube';
 import { useToast } from '@/state/AppProviders';
 import { STATUS_LABEL, type Progress } from '@/state/progress';
 
@@ -30,7 +30,7 @@ export function CaseCard({ c, set, progress }: { c: AlgCase; set: CaseSet; progr
 
   return (
     <article className="card" data-status={status}>
-      <div className="img"><CubeImage src={caseImageUrl(c, set)} alt={`Caso ${c.id}`} /></div>
+      <div className="img"><CaseDiagram c={c} set={set} /></div>
       <div className="head">
         <h3>{c.id} {c.nick && <span className="nick">{c.nick}</span>}</h3>
         <div className="meta"><span>{c.group}</span><span>Prob. {c.prob}</span></div>

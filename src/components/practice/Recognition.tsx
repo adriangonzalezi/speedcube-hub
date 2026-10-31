@@ -2,9 +2,9 @@
 // Reconocimiento contrarreloj: ves un caso y eliges cuál es entre cuatro.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ALGORITHMS, type AlgCase } from '@/data/algorithms';
-import { CubeImage, Segmented } from '@/components/ui';
+import { CaseDiagram } from '@/components/cube/CubeDiagram';
+import { Segmented } from '@/components/ui';
 import { pick, randomAuf, shuffle } from '@/lib/random';
-import { caseImageUrl } from '@/lib/visualcube';
 import { useProgress } from '@/state/progress';
 import { SET_OPTIONS, usePracticeStore } from './usePracticeStore';
 
@@ -59,7 +59,7 @@ export function Recognition() {
       </div>
       {round && (
         <div className="train-card">
-          <div className="train-img"><CubeImage src={caseImageUrl(round.c, set, { auf: round.auf, iso: set === 'pll', size: 300 })} alt="Caso a reconocer" size={260} lazy={false} onLoad={() => { if (!answer) t0.current = performance.now(); }} /></div>
+          <div className="train-img"><CaseDiagram c={round.c} set={set} auf={round.auf} iso={set === 'pll'} size={260} /></div>
           <div className="train-body">
             <p className="train-q">¿Qué caso es? {answer && <span className="rc-clock">{fmtS(answer.ms)}</span>}</p>
             <div className="rc-choices">

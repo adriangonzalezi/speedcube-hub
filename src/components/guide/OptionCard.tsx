@@ -1,7 +1,6 @@
 'use client';
-import { CubeImage } from '@/components/ui';
+import { StateDiagram } from '@/components/cube/CubeDiagram';
 import { totalMoves, type SolveOption } from '@/lib/cube';
-import { stateImageUrl } from '@/lib/visualcube';
 
 /** «OLL 27 (7 mov.) → T Perm (14 mov.)» */
 export function nextText(o: SolveOption) {
@@ -28,7 +27,7 @@ interface Props {
 export function OptionCard({ option: o, title, recommended, badge = 'Recomendado', hidden, chosen, actionLabel = 'Usar', onPick }: Props) {
   return (
     <article className={`co-opt${recommended ? ' best' : ''}${chosen ? ' chosen' : ''}`}>
-      {hidden ? <span className="ls-qmark">?</span> : <CubeImage src={stateImageUrl(o.after, false, 120)} alt="Resultado" size={88} />}
+      {hidden ? <span className="ls-qmark">?</span> : <StateDiagram state={o.after} size={88} label="Resultado" />}
       <div className="co-opt-body">
         <div className="co-opt-head">
           <h4>{title ?? o.label}{o.kind === 'f2l' && o.slotName && <span className="muted"> · hueco {o.slotName}</span>}</h4>
@@ -52,8 +51,8 @@ export function CubeViews({ state }: { state: import('@/lib/cube').CubeState }) 
   return (
     <div className="co-cube">
       <div className="co-views">
-        <figure><CubeImage src={stateImageUrl(state, false)} alt="Cubo, vista delantera" size={200} lazy={false} /><figcaption>Delante</figcaption></figure>
-        <figure><CubeImage src={stateImageUrl(state, true)} alt="Cubo, vista trasera" size={200} lazy={false} /><figcaption>Detrás</figcaption></figure>
+        <figure><StateDiagram state={state} size={200} label="Cubo, vista delantera" /><figcaption>Delante</figcaption></figure>
+        <figure><StateDiagram state={state} back size={200} label="Cubo, vista trasera" /><figcaption>Detrás</figcaption></figure>
       </div>
     </div>
   );

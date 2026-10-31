@@ -26,7 +26,7 @@ export function Footer() {
 
   return (
     <footer className="foot">
-      <span>Imágenes: <a href="https://visualcube.api.cubing.net/" target="_blank" rel="noopener noreferrer">VisualCube</a>. F2L: numeración y algoritmos de <a href="https://www.speedcubedb.com/a/3x3/F2L" target="_blank" rel="noopener noreferrer">SpeedCubeDB</a>. Tu progreso se guarda en este navegador.</span>
+      <span>Dibujos del cubo generados en la app. F2L: numeración y algoritmos de <a href="https://www.speedcubedb.com/a/3x3/F2L" target="_blank" rel="noopener noreferrer">SpeedCubeDB</a>. Tu progreso se guarda en este navegador.</span>
       <span className="foot-actions">
         <a href="/pdf/F2L.pdf" download>Hoja F2L (PDF)</a>
         <a href="/pdf/OLL.pdf" download>Hoja OLL (PDF)</a>
