@@ -2,7 +2,7 @@
 // Casos cronometrados: el cronómetro te va dando la mezcla de un caso y mides cuánto tardas en ejecutarlo.
 import { useRouter } from 'next/navigation';
 import { ALGORITHMS, type AlgCase, type CaseSet } from '@/data/algorithms';
-import { Segmented } from '@/components/ui';
+import { AlgText, Segmented } from '@/components/ui';
 import { invert, isFaceOnly, simplify } from '@/lib/cube';
 import { pick, randomAuf } from '@/lib/random';
 import { writeStore } from '@/lib/storage';
@@ -31,7 +31,7 @@ export function TimedCases() {
     return {
       scramble: setup, net: `z2 ${setup}`, phases: 1, insp: false,
       label: `Prepara ${c.id} con el amarillo arriba`,
-      banner: <><b>Casos cronometrados · {c.id}{c.nick ? ` · ${c.nick}` : ''}</b> <span className="muted">Tu algoritmo: <span className="alg">{progress.myAlg(c)}</span></span></>,
+      banner: <><b>Casos cronometrados · {c.id}{c.nick ? ` · ${c.nick}` : ''}</b> <span className="muted">Tu algoritmo: <span className="alg"><AlgText alg={progress.myAlg(c)} /></span></span></>,
       onDone: solve => {
         if (solve.p !== 'DNF') writeStore<PracticeStore>(KEYS.practice, PRACTICE_INITIAL, s => ({ ...s, cases: { ...s.cases, [c.id]: [...(s.cases[c.id] ?? []), solve.t].slice(-5) } }));
         return config();

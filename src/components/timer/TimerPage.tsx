@@ -11,6 +11,7 @@ import { EvolutionChart } from './EvolutionChart';
 import { SessionBar } from './SessionBar';
 import { SolveList } from './SolveList';
 import { StatsPanel } from './StatsPanel';
+import { ManualEntry } from './ManualEntry';
 import { TimerStage } from './TimerStage';
 
 export function TimerPage() {
@@ -63,8 +64,10 @@ export function TimerPage() {
         </div>
       </div>
       <div className="tm-main">
-        <TimerStage enabled inspection={special?.insp ?? timer.data.insp} voice={timer.data.voice} phases={special ? special.phases ?? 1 : timer.data.phases}
-          last={last} onFinish={onFinish} onLastAction={lastSpecial ? undefined : onLastAction} />
+        {timer.data.input === 'manual'
+          ? <ManualEntry last={last} prev={lastSpecial ? null : timer.solves[timer.solves.length - 2] ?? null} onFinish={onFinish} onLastAction={lastSpecial ? undefined : onLastAction} />
+          : <TimerStage enabled inspection={special?.insp ?? timer.data.insp} voice={timer.data.voice} phases={special ? special.phases ?? 1 : timer.data.phases}
+            last={last} prev={lastSpecial ? null : timer.solves[timer.solves.length - 2] ?? null} onFinish={onFinish} onLastAction={lastSpecial ? undefined : onLastAction} />}
         <div className="tm-net-wrap">
           {current && <CubeNet alg={current.net} />}
           <p className="muted tm-net-cap">{special?.net ? 'Amarillo arriba, verde delante' : 'Blanco arriba, verde delante'}</p>

@@ -5,8 +5,10 @@ import { KEYS, usePersistentState } from '@/lib/storage';
 import { rolling, type Penalty, type Solve } from '@/lib/timer/stats';
 
 export interface Session { id: number; name: string; solves: Solve[] }
-export interface TimerData { sessions: Session[]; cur: number; insp: boolean; voice: boolean; phases: number }
-const INITIAL: TimerData = { sessions: [{ id: 1, name: 'Sesión 1', solves: [] }], cur: 1, insp: false, voice: false, phases: 1 };
+/** timer: el cronómetro de la web · manual: escribes el tiempo de tu cronómetro físico */
+export type InputMode = 'timer' | 'manual';
+export interface TimerData { sessions: Session[]; cur: number; insp: boolean; voice: boolean; phases: number; input: InputMode }
+const INITIAL: TimerData = { sessions: [{ id: 1, name: 'Sesión 1', solves: [] }], cur: 1, insp: false, voice: false, phases: 1, input: 'timer' };
 
 export function useTimerData() {
   const [data, setData] = usePersistentState<TimerData>(KEYS.timer, INITIAL);
@@ -19,7 +21,7 @@ export function useTimerData() {
 
   return {
     data, session, solves, roll,
-    setSettings: (u: Partial<Pick<TimerData, 'insp' | 'voice' | 'phases'>>) => setData(d => ({ ...d, ...u })),
+    setSettings: (u: Partial<Pick<TimerData, 'insp' | 'voice' | 'phases' | 'input'>>) => setData(d => ({ ...d, ...u })),
     addSolve: (solve: Solve) => updateSession(s => ({ ...s, solves: [...s.solves, solve] })),
     setPenalty: (i: number, p: Penalty) => updateSession(s => ({ ...s, solves: s.solves.map((x, j) => (j === i ? { ...x, p } : x)) })),
     deleteSolve: (i: number) => updateSession(s => ({ ...s, solves: s.solves.filter((_, j) => j !== i) })),

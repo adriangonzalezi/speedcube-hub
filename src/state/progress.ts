@@ -19,6 +19,8 @@ export interface UiPrefs {
   trainPool: TrainPool;
   theme: '' | 'light' | 'dark';
   sideCollapsed: boolean;
+  /** Mostrar los algoritmos separados en bloques: (R U R' U') (R' F R F') */
+  groupAlgs: boolean;
 }
 interface SrsEntry { box: number; due: number }
 interface ProgressStore {
@@ -29,7 +31,7 @@ interface ProgressStore {
   ui: Partial<UiPrefs>;
 }
 
-const DEFAULT_UI: UiPrefs = { status: 'all', groups: { f2l: [], oll: [], pll: [] }, sort: 'num', trainSet: 'oll', trainPool: 'notknown', theme: '', sideCollapsed: false };
+const DEFAULT_UI: UiPrefs = { status: 'all', groups: { f2l: [], oll: [], pll: [] }, sort: 'num', trainSet: 'oll', trainPool: 'notknown', theme: '', sideCollapsed: false, groupAlgs: true };
 const INITIAL: ProgressStore = { status: {}, pick: {}, custom: {}, srs: {}, ui: {} };
 
 // Repaso espaciado (cajas de Leitner): días hasta el siguiente repaso según la caja

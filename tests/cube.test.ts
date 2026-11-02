@@ -4,6 +4,7 @@ import { ALGORITHMS, SETS } from '@/data/algorithms';
 import { invert, moveCount, simplify } from '@/lib/cube/notation';
 import { apply, SOLVED, isSolved, f2lOk, ollOk } from '@/lib/cube/state';
 import { randomMoveScramble } from '@/lib/cube/scramble';
+import { delta, formatDelta } from '@/lib/timer/stats';
 import { rand } from './helpers';
 
 describe('notación', () => {
@@ -40,5 +41,15 @@ describe('algoritmos', () => {
   });
   it('cada PLL mantiene la orientación', () => {
     for (const c of ALGORITHMS.pll) for (const alg of c.algs) expect(ollOk(apply(apply(SOLVED, 'x2'), invert(alg))), `${c.id}`).toBe(true);
+  });
+});
+
+describe('diferencia con el tiempo anterior', () => {
+  const s = (t: number, p: null | '+2' | 'DNF' = null) => ({ t, p, s: '', d: 0 });
+  it('calcula +5 y −2 y no compara con DNF', () => {
+    expect(formatDelta(delta(s(25000), s(20000))!)).toBe('+5.00');
+    expect(formatDelta(delta(s(23000), s(25000))!)).toBe('−2.00');
+    expect(formatDelta(delta(s(21000, '+2'), s(22000))!)).toBe('+1.00'); // el +2 cuenta
+    expect(delta(s(20000), s(19000, 'DNF'))).toBeNull();
   });
 });

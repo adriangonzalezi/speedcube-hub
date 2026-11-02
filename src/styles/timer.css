@@ -86,3 +86,19 @@
 .tm-ph-empty { font-size: 13px; margin: 0; }
 
 .tm-phase-stats .tm-stats tr:first-child th { font-size: inherit; letter-spacing: 0; text-transform: none; color: var(--muted); font-weight: 500; }
+
+/* Diferencia con el tiempo anterior: verde si mejoras, rojo si empeoras */
+:root { --faster: #1a9a4a; --slower: #d23b2f; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --faster: #3cc06c; --slower: #ff6b5e; } }
+:root[data-theme="dark"] { --faster: #3cc06c; --slower: #ff6b5e; }
+.tm-delta { font: 600 20px var(--f-mono); font-variant-numeric: tabular-nums; color: var(--muted); }
+.tm-delta.faster, .tm-dcell.faster { color: var(--faster); }
+.tm-delta.slower, .tm-dcell.slower { color: var(--slower); }
+.tm-list td.tm-dcell { font-size: 12.5px; }
+
+/* Modo «escribir el tiempo» */
+.tm-manual { cursor: default; touch-action: auto; user-select: auto; -webkit-user-select: auto; }
+.tm-manual-form { display: grid; gap: 6px; width: min(420px, 100%); }
+.tm-manual-form .co-scramble { font-size: 22px; text-align: center; }
+.tm-manual-form .co-input-row { flex-wrap: nowrap; }
+.tm-manual-form .co-input-row .co-scramble { flex: 1 1 auto; min-width: 0; }

@@ -24,6 +24,12 @@ export function SessionBar({ timer }: { timer: Timer }) {
         </select>
       </label>
       <button className="btn ghost" onClick={timer.newSession}>Nueva sesión</button>
+      <label className="tm-session"><span className="label">Cronometrar con</span>
+        <select value={data.input ?? 'timer'} onChange={e => { timer.setSettings({ input: e.target.value as 'timer' | 'manual' }); e.target.blur(); }} aria-label="Cómo cronometrar">
+          <option value="timer">El cronómetro de la web</option>
+          <option value="manual">Mi cronómetro (escribir el tiempo)</option>
+        </select></label>
+      {data.input !== 'manual' && <>
       <label className="tm-session"><span className="label">Fases</span>
         <select value={String(data.phases)} onChange={e => { timer.setSettings({ phases: +e.target.value }); e.target.blur(); }} aria-label="Fases a cronometrar">
           <option value="1">1 · normal</option>
@@ -34,6 +40,7 @@ export function SessionBar({ timer }: { timer: Timer }) {
       </label>
       <label className="tm-opt"><input type="checkbox" checked={data.insp} onChange={e => timer.setSettings({ insp: e.target.checked })} /> Inspección WCA (15 s)</label>
       <label className="tm-opt"><input type="checkbox" checked={data.voice} onChange={e => timer.setSettings({ voice: e.target.checked })} /> Avisos de voz (8 s / 12 s)</label>
+      </>}
     </div>
   );
 }

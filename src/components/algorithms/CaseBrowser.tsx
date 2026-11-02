@@ -68,6 +68,9 @@ export function CaseBrowser({ set }: { set: CaseSet }) {
           <kbd>/</kbd>
         </label>
         <Segmented label="Filtrar por estado" value={prefs.status} options={STATUS_FILTERS} onChange={status => setPrefs({ status })} />
+        <label className="tm-opt" title="Separa los algoritmos en bloques fáciles de recordar: (R U R' U') (R' F R F')">
+          <input type="checkbox" checked={prefs.groupAlgs} onChange={e => setPrefs({ groupAlgs: e.target.checked })} /> Bloques ( )
+        </label>
         <select aria-label="Ordenar" value={prefs.sort} onChange={e => setPrefs({ sort: e.target.value as SortKey })}>
           {SORTS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
         </select>

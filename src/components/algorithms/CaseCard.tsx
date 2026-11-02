@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import type { AlgCase, CaseSet } from '@/data/algorithms';
 import { CaseDiagram } from '@/components/cube/CubeDiagram';
+import { AlgText } from '@/components/ui';
 import { moveCount } from '@/lib/cube/notation';
 import { animationUrl } from '@/lib/visualcube';
 import { useToast } from '@/state/AppProviders';
@@ -45,7 +46,7 @@ export function CaseCard({ c, set, progress }: { c: AlgCase; set: CaseSet; progr
               onClick={() => progress.pickAlg(c.id, i)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); progress.pickAlg(c.id, i); } }}>
               <div>
                 <span className="alg-label">{isCustom ? 'Mío' : LABELS[i] ?? 'Alternativa'}{i === mine ? ' · elegido' : ''} · {moveCount(a)} mov.</span>
-                <p className="alg">{a}</p>
+                <p className="alg"><AlgText alg={a} /></p>
               </div>
               <span className="alg-tools" onClick={e => e.stopPropagation()}>
                 <button className="tool" title="Copiar" aria-label="Copiar algoritmo" onClick={() => copy(a)}>⧉</button>

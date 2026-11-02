@@ -3,7 +3,9 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { byFace, fromScramble, type Face } from '@/lib/cube/state';
+import { groupAlg } from '@/lib/cube/triggers';
 import { animationUrl } from '@/lib/visualcube';
+import { useProgress } from '@/state/progress';
 
 /** Imagen de VisualCube (servicio externo, por eso no usamos next/image) */
 export function CubeImage({ src, alt = '', size = 96, lazy = true, className, onLoad }: { src: string; alt?: string; size?: number; lazy?: boolean; className?: string; onLoad?: () => void }) {
@@ -62,10 +64,16 @@ export function ProgressRing({ value, label, small }: { value: number; label: st
 
 export const Pill = ({ ok, children }: { ok?: boolean; children: ReactNode }) => <span className={`pill${ok ? ' ok' : ''}`}>{children}</span>;
 
+/** Un algoritmo, separado en bloques si así lo prefiere el usuario */
+export function AlgText({ alg }: { alg: string }) {
+  const { prefs } = useProgress();
+  return <>{prefs.groupAlgs ? groupAlg(alg) : alg}</>;
+}
+
 /** Algoritmo en monoespaciada con enlace a la animación */
 export function AlgLink({ alg }: { alg: string }) {
   return (
-    <span className="ls-alg"><code>{alg}</code>
+    <span className="ls-alg"><code><AlgText alg={alg} /></code>
       <a href={animationUrl(alg)} target="_blank" rel="noopener noreferrer" title="Ver animación">▶</a>
     </span>
   );

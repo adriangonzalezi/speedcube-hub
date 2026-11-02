@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ALGORITHMS, allCases, type CaseSet, type CaseWithSet } from '@/data/algorithms';
 import { CaseDiagram } from '@/components/cube/CubeDiagram';
-import { ProgressBar, Segmented } from '@/components/ui';
+import { AlgText, ProgressBar, Segmented } from '@/components/ui';
 import { pick, randomAuf } from '@/lib/random';
 import { useToast } from '@/state/AppProviders';
 import { SRS_BOXES, useProgress, type TrainPool } from '@/state/progress';
@@ -75,8 +75,8 @@ export function Flashcards() {
             {revealed && (
               <div id="train-answer">
                 <h2>{current.id}{current.nick ? ` · ${current.nick}` : ''}</h2>
-                <p className="alg big">{p.myAlg(current)}</p>
-                {alt && <p className="muted" id="train-alt">Alternativa: {alt}</p>}
+                <p className="alg big"><AlgText alg={p.myAlg(current)} /></p>
+                {alt && <p className="muted" id="train-alt">Alternativa: <AlgText alg={alt} /></p>}
                 <p className="srs-note">{box ? `Caja ${box} de ${SRS_BOXES.length - 1} del repaso espaciado.` : 'Caso nuevo en el repaso.'}</p>
               </div>
             )}

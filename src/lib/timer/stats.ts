@@ -23,7 +23,51 @@ export function formatTime(ms: number | undefined | null): string {
   const rest = String(cs % 100).padStart(2, '0');
   return m ? `${m}:${String(s % 60).padStart(2, '0')}.${rest}` : `${s}.${rest}`;
 }
-export const formatSolve = (s: Solve) => (s.p === 'DNF' ? `DNF(${formatTime(s.t)})` : formatTime(effective(s)) + (s.p === '+2' ? '+' : ''));
+/** Diferencia con el tiempo anterior (null si alguno es DNF o no hay anterior) */
+export function delta(cur: Solve | null | undefined, prev: Solve | null | undefined): number | null {
+  if (!cur || !prev) return null;
+  const a = effective(cur), b = effective(prev);
+  return a === Infinity || b === Infinity ? null : a - b;
+}
+/** +5.00 / −2.00 (centésimas, con el signo menos tipográfico) */
+export const formatDelta = (ms: number) => `${ms > 0 ? '+' : ms < 0 ? '−' : '±'}${(Math.abs(ms) / 1000).toFixed(2)}`;
+
+/**
+ * Lee un tiempo escrito a mano (como en csTimer):
+ * "21.43" · "1:02.34" · "2143" (= 21.43) · "12345" (= 1:23.45) · "DNF" · "21.43+" (+2)
+ * Devuelve null si no se entiende.
+ */
+export function parseTimeInput(input: string): { t: number; p: Penalty } | null {
+  let s = input.trim().toLowerCase().replace(',', '.');
+  if (!s) return null;
+  if (s.startsWith('dnf')) {
+    const inner = s.slice(3).replace(/[()]/g, '').trim();
+    const parsed = inner ? parseTimeInput(inner) : null;
+    return { t: parsed?.t ?? 0, p: 'DNF' };
+  }
+  let p: Penalty = null;
+  if (s.endsWith('+2')) { p = '+2'; s = s.slice(0, -2).trim(); } else if (s.endsWith('+')) { p = '+2'; s = s.slice(0, -1).trim(); }
+  let ms: number;
+  if (/^\d{1,2}$/.test(s)) {
+    // una o dos cifras: segundos enteros ("21" = 21.00)
+    ms = +s * 1000;
+  } else if (/^\d+$/.test(s)) {
+    // más cifras: las dos últimas son centésimas; si hay más de 4, las de delante son minutos
+    const n = s.padStart(3, '0'); const cs = +n.slice(-2); const rest = n.slice(0, -2);
+    const sec = +rest.slice(-2), min = +(rest.slice(0, -2) || 0);
+    if (sec >= 60 && min > 0) return null;
+    ms = (min * 60 + sec) * 1000 + cs * 10;
+  } else {
+    const m = s.match(/^(?:(\d+):)?(\d+)(?:\.(\d{1,3}))?$/);
+    if (!m) return null;
+    const min = m[1] ? +m[1] : 0, sec = +m[2];
+    if (m[1] && sec >= 60) return null;
+    ms = (min * 60 + sec) * 1000 + (m[3] ? Math.round(+`0.${m[3]}` * 1000) : 0);
+  }
+  return ms > 0 ? { t: ms, p } : null;
+}
+
+export const formatSolve = (s: Solve) => (s.p === 'DNF' ? (s.t ? `DNF(${formatTime(s.t)})` : 'DNF') : formatTime(effective(s)) + (s.p === '+2' ? '+' : ''));
 
 /** Media con recorte: ao5/ao12 quitan el mejor y el peor; ao50/ao100 el 5 % de cada lado */
 export function average(win: Solve[], trim: number): number {

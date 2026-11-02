@@ -1,6 +1,6 @@
 'use client';
 // Zona del tiempo: muestra el cronómetro, las fases y las acciones sobre el último tiempo.
-import { PHASES, formatSolve, formatTime, phaseDurations, type Penalty, type Solve } from '@/lib/timer/stats';
+import { PHASES, delta, formatDelta, formatSolve, formatTime, phaseDurations, type Penalty, type Solve } from '@/lib/timer/stats';
 import { useStackmat } from './useStackmat';
 
 interface Props {
@@ -9,6 +9,8 @@ interface Props {
   voice: boolean;
   phases: number;
   last: Solve | null;
+  /** Tiempo anterior, para enseñar la diferencia (+5.00 / −2.00) */
+  prev?: Solve | null;
   onFinish: (ms: number, penalty: Penalty, splits: number[]) => void;
   onLastAction?: (action: Penalty | 'delete') => void;
 }
@@ -27,7 +29,7 @@ function Splits({ sp, live, count }: { sp: number[]; live: boolean; count: numbe
   );
 }
 
-export function TimerStage({ enabled, inspection, voice, phases, last, onFinish, onLastAction }: Props) {
+export function TimerStage({ enabled, inspection, voice, phases, last, prev, onFinish, onLastAction }: Props) {
   const timer = useStackmat({ enabled, inspection, voice, phases, onFinish });
   const { phase, elapsed, inspLeft, splits } = timer;
 
@@ -44,6 +46,10 @@ export function TimerStage({ enabled, inspection, voice, phases, last, onFinish,
       onPointerUp={e => { if (!(e.target as HTMLElement).closest('button')) timer.release(); }}
       onPointerCancel={() => { if (phase === 'hold' || phase === 'ready') timer.cancel(); }}>
       <div className="tm-time">{display}</div>
+      {phase === 'idle' && (() => {
+        const d = delta(last, prev);
+        return d === null ? null : <div className={`tm-delta ${d < 0 ? 'faster' : d > 0 ? 'slower' : ''}`} title="Diferencia con el tiempo anterior">{formatDelta(d)}</div>;
+      })()}
       {phase === 'run' ? <Splits sp={[...splits, elapsed]} live count={phases} />
         : phase === 'idle' && last?.sp ? <Splits sp={last.sp} live={false} count={last.sp.length} /> : null}
       {phase === 'idle' && !last && <p className="tm-hint">Mantén pulsado <kbd>Espacio</kbd> y suelta para empezar · en el móvil, mantén pulsada esta zona</p>}

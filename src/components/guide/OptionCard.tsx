@@ -1,5 +1,6 @@
 'use client';
 import { StateDiagram } from '@/components/cube/CubeDiagram';
+import { AlgText } from '@/components/ui';
 import { totalMoves, type SolveOption } from '@/lib/cube';
 
 /** «OLL 27 (7 mov.) → T Perm (14 mov.)» */
@@ -35,7 +36,7 @@ export function OptionCard({ option: o, title, recommended, badge = 'Recomendado
           {o.alt && <span className="tag">alternativo</span>}
           {chosen && <span className="tag">tu elección</span>}
         </div>
-        <p className="alg">{o.alg || '(nada que hacer)'}</p>
+        <p className="alg">{o.alg ? <AlgText alg={o.alg} /> : '(nada que hacer)'}</p>
         <p className="co-meta">
           <span>{o.moves} mov.{o.rotation ? ' · con giro de cubo' : ''}</span>
           {!hidden && o.next && <><span>Te deja: <b>{nextText(o)}</b></span><span>Total: {Math.round(totalMoves(o))} mov.</span></>}

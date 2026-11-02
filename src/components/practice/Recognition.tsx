@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ALGORITHMS, type AlgCase } from '@/data/algorithms';
 import { CaseDiagram } from '@/components/cube/CubeDiagram';
-import { Segmented } from '@/components/ui';
+import { AlgText, Segmented } from '@/components/ui';
 import { pick, randomAuf, shuffle } from '@/lib/random';
 import { useProgress } from '@/state/progress';
 import { SET_OPTIONS, usePracticeStore } from './usePracticeStore';
@@ -70,7 +70,7 @@ export function Recognition() {
               ))}
             </div>
             <p className="rc-feedback">{answer && (answer.id === round.c.id ? `¡Bien! ${fmtS(answer.ms)}`
-              : <>Era <b>{round.c.id}{round.c.nick ? ` · ${round.c.nick}` : ''}</b>. Algoritmo: <span className="alg">{myAlg(round.c)}</span></>)}</p>
+              : <>Era <b>{round.c.id}{round.c.nick ? ` · ${round.c.nick}` : ''}</b>. Algoritmo: <span className="alg"><AlgText alg={myAlg(round.c)} /></span></>)}</p>
             {answer && <div className="train-buttons"><button className="btn primary" onClick={next}>Siguiente <kbd>Espacio</kbd></button></div>}
             <p className="hint">Responde con el ratón o con las teclas 1–4. El tiempo empieza cuando aparece el caso: así mides tu velocidad de reconocimiento, que es lo que más se nota en OLL y PLL.</p>
           </div>
